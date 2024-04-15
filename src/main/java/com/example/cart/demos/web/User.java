@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.xiaomi.demos.web;
+package com.example.cart.demos.web;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>

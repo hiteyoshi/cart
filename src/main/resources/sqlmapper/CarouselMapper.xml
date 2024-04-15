@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cart.mapper.CarouselMapper">
+  <resultMap id="BaseResultMap" type="com.example.cart.model.Carousel">
+    <id column="carousel_id" jdbcType="INTEGER" property="carouselId" />
+    <result column="img_path" jdbcType="CHAR" property="imgPath" />
+    <result column="describes" jdbcType="CHAR" property="describes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    carousel_id, img_path, describes
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carousel
+    where carousel_id = #{carouselId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carousel
+    where carousel_id = #{carouselId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.cart.model.Carousel">
+    insert into carousel (carousel_id, img_path, describes
+      )
+    values (#{carouselId,jdbcType=INTEGER}, #{imgPath,jdbcType=CHAR}, #{describes,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.cart.model.Carousel">
+    insert into carousel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carouselId != null">
+        carousel_id,
+      </if>
+      <if test="imgPath != null">
+        img_path,
+      </if>
+      <if test="describes != null">
+        describes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carouselId != null">
+        #{carouselId,jdbcType=INTEGER},
+      </if>
+      <if test="imgPath != null">
+        #{imgPath,jdbcType=CHAR},
+      </if>
+      <if test="describes != null">
+        #{describes,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.cart.model.Carousel">
+    update carousel
+    <set>
+      <if test="imgPath != null">
+        img_path = #{imgPath,jdbcType=CHAR},
+      </if>
+      <if test="describes != null">
+        describes = #{describes,jdbcType=CHAR},
+      </if>
+    </set>
+    where carousel_id = #{carouselId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.cart.model.Carousel">
+    update carousel
+    set img_path = #{imgPath,jdbcType=CHAR},
+      describes = #{describes,jdbcType=CHAR}
+    where carousel_id = #{carouselId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cart.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.example.cart.model.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="CHAR" property="productName" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="product_title" jdbcType="CHAR" property="productTitle" />
+    <result column="product_picture" jdbcType="CHAR" property="productPicture" />
+    <result column="product_price" jdbcType="DOUBLE" property="productPrice" />
+    <result column="product_selling_price" jdbcType="DOUBLE" property="productSellingPrice" />
+    <result column="product_num" jdbcType="INTEGER" property="productNum" />
+    <result column="product_sales" jdbcType="INTEGER" property="productSales" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.cart.model.Product">
+    <result column="product_intro" jdbcType="LONGVARCHAR" property="productIntro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    product_id, product_name, category_id, product_title, product_picture, product_price, 
+    product_selling_price, product_num, product_sales
+  </sql>
+  <sql id="Blob_Column_List">
+    product_intro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.cart.model.Product">
+    insert into product (product_id, product_name, category_id, 
+      product_title, product_picture, product_price, 
+      product_selling_price, product_num, product_sales, 
+      product_intro)
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=CHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{productTitle,jdbcType=CHAR}, #{productPicture,jdbcType=CHAR}, #{productPrice,jdbcType=DOUBLE}, 
+      #{productSellingPrice,jdbcType=DOUBLE}, #{productNum,jdbcType=INTEGER}, #{productSales,jdbcType=INTEGER}, 
+      #{productIntro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.cart.model.Product">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="productTitle != null">
+        product_title,
+      </if>
+      <if test="productPicture != null">
+        product_picture,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productSellingPrice != null">
+        product_selling_price,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="productSales != null">
+        product_sales,
+      </if>
+      <if test="productIntro != null">
+        product_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=CHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="productTitle != null">
+        #{productTitle,jdbcType=CHAR},
+      </if>
+      <if test="productPicture != null">
+        #{productPicture,jdbcType=CHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productSellingPrice != null">
+        #{productSellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="productSales != null">
+        #{productSales,jdbcType=INTEGER},
+      </if>
+      <if test="productIntro != null">
+        #{productIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.cart.model.Product">
+    update product
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=CHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="productTitle != null">
+        product_title = #{productTitle,jdbcType=CHAR},
+      </if>
+      <if test="productPicture != null">
+        product_picture = #{productPicture,jdbcType=CHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productSellingPrice != null">
+        product_selling_price = #{productSellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="productSales != null">
+        product_sales = #{productSales,jdbcType=INTEGER},
+      </if>
+      <if test="productIntro != null">
+        product_intro = #{productIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.cart.model.Product">
+    update product
+    set product_name = #{productName,jdbcType=CHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      product_title = #{productTitle,jdbcType=CHAR},
+      product_picture = #{productPicture,jdbcType=CHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      product_selling_price = #{productSellingPrice,jdbcType=DOUBLE},
+      product_num = #{productNum,jdbcType=INTEGER},
+      product_sales = #{productSales,jdbcType=INTEGER},
+      product_intro = #{productIntro,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.cart.model.Product">
+    update product
+    set product_name = #{productName,jdbcType=CHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      product_title = #{productTitle,jdbcType=CHAR},
+      product_picture = #{productPicture,jdbcType=CHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      product_selling_price = #{productSellingPrice,jdbcType=DOUBLE},
+      product_num = #{productNum,jdbcType=INTEGER},
+      product_sales = #{productSales,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.xiaomi.demos.web;
+package com.example.cart.demos.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
